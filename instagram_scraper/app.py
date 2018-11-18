@@ -847,8 +847,14 @@ class InstagramScraper(object):
         return item
 
     def download(self, item, save_dir='./'):
+        
+        timestamp = self.__get_timestamp(item)
+        time = [timestamp]
+        with open('times.csv', "a") as fp:
+            wr = csv.writer(fp, dialect='excel')
+            wr.writerow(time)
         """Downloads the media file."""
-        for full_url, base_name in self.templatefilename(item):
+        '''for full_url, base_name in self.templatefilename(item):
             url = full_url.split('?')[0] #try the static url first, stripping parameters
 
             file_path = os.path.join(save_dir, base_name)
@@ -951,8 +957,12 @@ class InstagramScraper(object):
                 if downloaded == total_length or total_length is None:
                     os.rename(part_file, file_path)
                     timestamp = self.__get_timestamp(item)
+                    time = [timestamp]
+                    with open('times.csv', "a") as fp:
+                         wr = csv.writer(fp, dialect='excel')
+                         wr.writerow(time)
                     file_time = int(timestamp if timestamp else time.time())
-                    os.utime(file_path, (file_time, file_time))
+                    os.utime(file_path, (file_time, file_time))'''
 
     def templatefilename(self, item):
 
